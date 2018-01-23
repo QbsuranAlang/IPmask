@@ -18,7 +18,7 @@ static const char *ip_ntoa(in_addr_t i);
 static in_addr_t ip_aton(const char *ip_addr_str);
 static void print_bin(const char *bin);
 static void dump_ip_slash(const char *ip_slash);
-static in_addr_t genrage_netmask(int slash);
+static in_addr_t generate_netmask(int slash);
 static u_int32_t available_ip_num(in_addr_t network, in_addr_t broadcast);
 static void dump_ip_netmask(const char *ip, const char *netmask_str);
 static int netmask_to_slash(const char *netmask); /* -1 is invalid */
@@ -134,7 +134,7 @@ static void dump_ip_slash(const char *ip_slash) {
     }//end if
 
     in_addr_t ip_addr = ip_aton(ip);
-    in_addr_t netmask = genrage_netmask(atoi(slash));
+    in_addr_t netmask = generate_netmask(atoi(slash));
     in_addr_t network = ip_addr & netmask;
     in_addr_t broadcast = network | ~netmask;
 
@@ -147,7 +147,7 @@ BYE:
     }//end if
 }//end dump_ip_slash
 
-static in_addr_t genrage_netmask(int slash) {
+static in_addr_t generate_netmask(int slash) {
     in_addr_t netmask = 0;
     in_addr_t mask = 1 << 31;
     for(int i = 0 ; i < slash ; i++) {
@@ -155,7 +155,7 @@ static in_addr_t genrage_netmask(int slash) {
         mask >>= 1;
     }
     return htonl(netmask);
-}//end genrage_netmask
+}//end generate_netmask
 
 static u_int32_t available_ip_num(in_addr_t network, in_addr_t broadcast) {
     u_int32_t start = ntohl(network);
@@ -172,7 +172,7 @@ static void dump_ip_netmask(const char *ip, const char *netmask_str) {
     }//end if
 
     in_addr_t ip_addr = ip_aton(ip);
-    in_addr_t netmask = genrage_netmask(slash);
+    in_addr_t netmask = generate_netmask(slash);
     in_addr_t network = ip_addr & netmask;
     in_addr_t broadcast = network | ~netmask;
     printf("Input:             %s %s\n", ip, netmask_str);
