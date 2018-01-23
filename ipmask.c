@@ -10,6 +10,7 @@
 #include <netinet/ip.h>
 
 #define STR_BUF 16
+#define INVALID_NETMASK (0x12345678)
 
 static void usage(const char *cmd);
 static void print(int slash, in_addr_t network, in_addr_t netmask, in_addr_t broadcast);
@@ -166,7 +167,7 @@ static u_int32_t available_ip_num(in_addr_t network, in_addr_t broadcast) {
 static void dump_ip_netmask(const char *ip, const char *netmask_str) {
     int slash = netmask_to_slash(netmask_str);
 
-    if(slash == -1) {
+    if(slash == INVALID_NETMASK) {
         fprintf(stderr, "Invalid netmask: %s\n", netmask_str);
         return;
     }//end if
@@ -201,5 +202,5 @@ static int netmask_to_slash(const char *netmask) {
     }//end for
 
     return slash >= sizeof(valid_addr)/sizeof(valid_addr[0])
-    ? -1 : slash;
+    ? INVALID_NETMASK : slash;
 }//end netmask_to_slash
