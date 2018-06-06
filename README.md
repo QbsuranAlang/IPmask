@@ -1,12 +1,15 @@
-# IPmask
-A tool for ip netmask calculation
+IPmask
+=======
+A tool for ip netmask calculation.
 
-## Compile
+Compile
+----------
 ```
 make
 ```
 
-## Example
+Example
+-----------
 ```
 ~ ⇒ ipmask 192.168.1.4/24
 Input:             192.168.1.4/24
